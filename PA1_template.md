@@ -150,6 +150,24 @@ hist(modifiedDailySteps, col = "blue")
 
 ![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
 
+Both the median and mean values have reduced because of the introduction of 0s.
+
+
+```r
+mean(modifiedDailySteps)
+```
+
+```
+## [1] 9354.23
+```
+
+```r
+median(modifiedDailySteps)
+```
+
+```
+## [1] 10395
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

@@ -96,6 +96,12 @@ modifiedDailySteps <- ddply(modifiedActivityData, .(date), summarize,
 hist(modifiedDailySteps, col = "blue")
 ```
 
+Both the median and mean values have reduced because of the introduction of 0s.
+
+```{r}
+mean(modifiedDailySteps)
+median(modifiedDailySteps)
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
