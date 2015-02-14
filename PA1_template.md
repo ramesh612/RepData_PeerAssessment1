@@ -185,4 +185,9 @@ activityData$dayType <- factor(activityData$dayType)
 
 ```r
 stepsByDayType <- aggregate(steps ~ interval + dayType, data = activityData, mean)
+library(lattice)
+xyplot(steps ~ interval | dayType, stepsByDayType, type = "l", layout = c(1, 2), 
+       xlab = "Interval", ylab = "Number of steps")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
