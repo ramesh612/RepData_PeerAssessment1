@@ -71,7 +71,8 @@ allActivityData &lt;- read.csv(&quot;activity.csv&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Process/transform the data (if necessary) into a format suitable for your analysis (removing rows that contain NA)</li>
 </ol>
-<pre class="r"><code>activityData &lt;- allActivityData[complete.cases(allActivityData),]</code></pre>
+<pre class="r"><code>allActivityData$date &lt;- as.Date(allActivityData$date, &quot;%Y-%m-%d&quot;)
+activityData &lt;- allActivityData[complete.cases(allActivityData),]</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
@@ -150,9 +151,14 @@ hist(modifiedDailySteps, col = &quot;blue&quot;)</code></pre>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 <ol style="list-style-type: decimal">
-<li><p>Create a new factor variable in the dataset with two levels - “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</p></li>
-<li><p>Make a panel plot containing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.</p></li>
+<li>Create a new factor variable in the dataset with two levels - “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</li>
 </ol>
+<pre class="r"><code>activityData$dayType &lt;- ifelse(weekdays(activityData$date) %in% c(&quot;Sunday&quot;, &quot;Saturday&quot;), &quot;Weekend&quot;, &quot;Weekday&quot;)
+activityData$dayType &lt;- factor(activityData$dayType)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Make a panel plot containing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.</li>
+</ol>
+<pre class="r"><code>stepsByDayType &lt;- aggregate(steps ~ interval + dayType, data = activityData, mean)</code></pre>
 </div>
 
 

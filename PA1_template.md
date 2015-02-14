@@ -26,6 +26,7 @@ allActivityData <- read.csv("activity.csv")
 
 
 ```r
+allActivityData$date <- as.Date(allActivityData$date, "%Y-%m-%d")
 activityData <- allActivityData[complete.cases(allActivityData),]
 ```
 
@@ -174,7 +175,14 @@ median(modifiedDailySteps)
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 
+```r
+activityData$dayType <- ifelse(weekdays(activityData$date) %in% c("Sunday", "Saturday"), "Weekend", "Weekday")
+activityData$dayType <- factor(activityData$dayType)
+```
 
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
 
+```r
+stepsByDayType <- aggregate(steps ~ interval + dayType, data = activityData, mean)
+```
